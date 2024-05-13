@@ -8,20 +8,20 @@ class Animal:
         raise NotImplementedError("This method should be overridden by subclasses.")
 
     def eat(self):
-        print(f"{self.name} is eating.")
+        print(f"{self.name} ест.")
 
 # Подклассы
 class Bird(Animal):
     def make_sound(self):
-        print(f"{self.name} says chirp!")
+        print(f"{self.name} говорит чирик!")
 
 class Mammal(Animal):
     def make_sound(self):
-        print(f"{self.name} says roar!")
+        print(f"{self.name} говорит ррр!")
 
 class Reptile(Animal):
     def make_sound(self):
-        print(f"{self.name} says hiss!")
+        print(f"{self.name} произносит шипение!")
 
 # Функция для демонстрации полиморфизма
 def animal_sound(animals):
@@ -31,14 +31,14 @@ def animal_sound(animals):
 # Классы для сотрудников
 class ZooKeeper:
     def feed_animal(self, animal):
-        print(f"{self.name} is feeding {animal.name}.")
+        print(f"{self.name} освобождает {animal.name}.")
 
     def __init__(self, name):
         self.name = name
 
 class Veterinarian:
     def heal_animal(self, animal):
-        print(f"{self.name} is treating {animal.name}.")
+        print(f"{self.name} лечит {animal.name}.")
 
     def __init__(self, name):
         self.name = name
@@ -51,11 +51,11 @@ class Zoo:
 
     def add_animal(self, animal):
         self.animals.append(animal)
-        print(f"Added {animal.name} to the zoo.")
+        print(f"Добавление {animal.name} в животные зоопарка.")
 
     def add_staff(self, staff_member):
         self.staff.append(staff_member)
-        print(f"Added {staff_member.name} to the zoo staff.")
+        print(f"Дабавление {staff_member.name} в сотрудники зоопарка.")
 
 # Создание объектов и тестирование функционала
 zoo = Zoo()
