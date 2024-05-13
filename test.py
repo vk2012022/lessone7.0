@@ -59,11 +59,11 @@ class Zoo:
 
 # Создание объектов и тестирование функционала
 zoo = Zoo()
-zoo.add_staff(ZooKeeper("Alice"))
-zoo.add_staff(Veterinarian("Bob"))
+zoo.add_staff(ZooKeeper("Настя"))
+zoo.add_staff(Veterinarian("Михаил"))
 
-zoo.add_animal(Bird("Tweety", 3))
-zoo.add_animal(Mammal("Simba", 5))
-zoo.add_animal(Reptile("Slither", 2))
+zoo.add_animal(Bird("Кукушка", 3))
+zoo.add_animal(Mammal("Кот", 5))
+zoo.add_animal(Reptile("Жаба", 2))
 
 animal_sound(zoo.animals)

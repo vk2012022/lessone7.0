@@ -23,19 +23,19 @@ class Animal():
         pass
 
     def eat(self):
-        pass
+        print(f"{self.name} ест.")
 
 class Bird(Animal):
     def make_sound(self):
-        print("Ку-ку")
+        print(f"{self.name} говорит ку-ку!")
 
 class Mammal(Animal):
     def make_sound(self):
-        print("Мяу-мяу")
+        print(f"{self.name} говорит мяу!")
 
 class Reptile(Animal):
     def make_sound(self):
-        print("Ква-ква")
+        print(f"{self.name} говорит ква-ква!")
 
 animals = [Bird("Кукушка", 5), Mammal("Кот", 2), Reptile("Жаба", 1)]
 
@@ -47,29 +47,41 @@ def animal_sound(animals):
 animal_sound(animals)
 
 
+class ZooKeeper:
+    def feed_animal(self, animal):
+        print(f"{self.name} освобождает {animal.name}.")
+
+    def __init__(self, name):
+        self.name = name
+
+class Veterinarian:
+    def heal_animal(self, animal):
+        print(f"{self.name} лечит {animal.name}.")
+
+    def __init__(self, name):
+        self.name = name
+
+# Класс Zoo с использованием композиции
 class Zoo:
     def __init__(self):
         self.animals = []
-        self.employees = []
+        self.staff = []
 
     def add_animal(self, animal):
         self.animals.append(animal)
+        print(f"Добавление {animal.name} в животные зоопарка.")
 
-    def add_employee(self, employee):
-        self.employees.append(employee)
+    def add_staff(self, staff_member):
+        self.staff.append(staff_member)
+        print(f"Дабавление {staff_member.name} в сотрудники зоопарка.")
 
-    def feed_animal(self):
-        pass
+# Создание объектов и тестирование функционала
+zoo = Zoo()
+zoo.add_staff(ZooKeeper("Настя"))
+zoo.add_staff(Veterinarian("Михаил"))
 
-    def heal_animal(self):
-        pass
-
-
-class ZooKeeper(Zoo):
-    def feed_animal(self):
-        pass
-
-class Veterinarian(Zoo):
-    def heal_animal(self):
-        pass
-
+zoo.add_animal(Bird("Кушка", 3))
+zoo.add_animal(Mammal("Кот", 5))
+zoo.add_animal(Reptile("Жаба", 2))
+print(f"Животные: {[animal.name for animal in animals]}, возраст: {[animal.age for animal in animals]}")
+animal_sound(zoo.animals)
