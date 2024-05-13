@@ -38,8 +38,38 @@ class Reptile(Animal):
         print("Ква-ква")
 
 animals = [Bird("Кукушка", 5), Mammal("Кот", 2), Reptile("Жаба", 1)]
+
+print(f"Животные: {[animal.name for animal in animals]}, возраст: {[animal.age for animal in animals]}")
 def animal_sound(animals):
     for animal in animals:
         animal.make_sound()
 
 animal_sound(animals)
+
+
+class Zoo:
+    def __init__(self):
+        self.animals = []
+        self.employees = []
+
+    def add_animal(self, animal):
+        self.animals.append(animal)
+
+    def add_employee(self, employee):
+        self.employees.append(employee)
+
+    def feed_animal(self):
+        pass
+
+    def heal_animal(self):
+        pass
+
+
+class ZooKeeper(Zoo):
+    def feed_animal(self):
+        pass
+
+class Veterinarian(Zoo):
+    def heal_animal(self):
+        pass
+
