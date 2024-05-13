@@ -75,13 +75,26 @@ class Zoo:
         self.staff.append(staff_member)
         print(f"Дабавление {staff_member.name} в сотрудники зоопарка.")
 
+    def list_animals(self):
+        print("Список животных в зоопарке:")
+        for animal in self.animals:
+            print(f"Имя: {animal.name}, возраст: {animal.age}")
+
+    def list_staff(self):
+        print("Список сотрудников зоопарка:")
+        for staff_member in self.staff:
+            print(f"Имя: {staff_member.name}")
+
+
 # Создание объектов и тестирование функционала
 zoo = Zoo()
 zoo.add_staff(ZooKeeper("Настя"))
 zoo.add_staff(Veterinarian("Михаил"))
 
-zoo.add_animal(Bird("Кушка", 3))
+zoo.add_animal(Bird("Кукушка", 3))
 zoo.add_animal(Mammal("Кот", 5))
 zoo.add_animal(Reptile("Жаба", 2))
-print(f"Животные: {[animal.name for animal in animals]}, возраст: {[animal.age for animal in animals]}")
+
 animal_sound(zoo.animals)
+zoo.list_animals()
+zoo.list_staff()
