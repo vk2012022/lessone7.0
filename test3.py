@@ -95,6 +95,8 @@ zoo.add_animal(Bird("Кукушка", 3))
 zoo.add_animal(Mammal("Кот", 5))
 zoo.add_animal(Reptile("Жаба", 2))
 
+
+
 animal_sound(zoo.animals)
 zoo.list_animals()
 zoo.list_staff()

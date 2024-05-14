@@ -33,6 +33,10 @@ class Reptile(Animal):
     def make_sound(self):
         print(f"{self.name} говорит ква-ква!")
 
+def animal_sound(animals):
+    for animal in animals:
+        animal.make_sound()
+
 class ZooKeeper:
     def __init__(self, name):
         self.name = name
@@ -104,7 +108,9 @@ zoo.add_staff(Veterinarian("Михаил"))
 zoo.add_animal(Bird("Кукушка", 3))
 zoo.add_animal(Mammal("Кот", 5))
 zoo.add_animal(Reptile("Жаба", 2))
-
+animal_sound(zoo.animals)
+zoo.list_animals()
+zoo.list_staff()
 # Сохранение состояния зоопарка в файл
 zoo.save_to_file('zoo_state.json')
 
