@@ -1,21 +1,8 @@
-#1. Создайте базовый класс `Animal`, который будет содержать общие атрибуты (например, `name`, `age`)
-# и методы (`make_sound()`, `eat()`) для всех животных.
+import json
 
-#2. Реализуйте наследование, создав подклассы `Bird`, `Mammal`, и `Reptile`, которые наследуют от класса `Animal`.
-# Добавьте специфические атрибуты и переопределите методы, если требуется (например, различный звук для `make_sound()`).
-
-#3. Продемонстрируйте полиморфизм: создайте функцию `animal_sound(animals)`, которая принимает список животных
-# и вызывает метод `make_sound()` для каждого животного.
-
-#4. Используйте композицию для создания класса `Zoo`, который будет содержать информацию о животных и сотрудниках.
-# Должны быть методы для добавления животных и сотрудников в зоопарк.
-
-#5. Создайте классы для сотрудников, например, `ZooKeeper`, `Veterinarian`, которые могут иметь специфические методы
-# (например, `feed_animal()` для `ZooKeeper` и `heal_animal()` для `Veterinarian`).
-
-
-class Animal():
-    def __init__(self, name, age):
+class Animal:
+    def __init__(self, type, name, age):
+        self.type = type
         self.name = name
         self.age = age
 
@@ -26,42 +13,36 @@ class Animal():
         print(f"{self.name} ест.")
 
 class Bird(Animal):
+    def __init__(self, name, age):
+        super().__init__("Bird", name, age)
+
     def make_sound(self):
         print(f"{self.name} говорит ку-ку!")
 
 class Mammal(Animal):
+    def __init__(self, name, age):
+        super().__init__("Mammal", name, age)
+
     def make_sound(self):
         print(f"{self.name} говорит мяу!")
 
 class Reptile(Animal):
+    def __init__(self, name, age):
+        super().__init__("Reptile", name, age)
+
     def make_sound(self):
         print(f"{self.name} говорит ква-ква!")
 
-animals = [Bird("Кукушка", 5), Mammal("Кот", 2), Reptile("Жаба", 1)]
-
-print(f"Животные: {[animal.name for animal in animals]}, возраст: {[animal.age for animal in animals]}")
-def animal_sound(animals):
-    for animal in animals:
-        animal.make_sound()
-
-animal_sound(animals)
-
-
 class ZooKeeper:
-    def feed_animal(self, animal):
-        print(f"{self.name} освобождает {animal.name}.")
-
     def __init__(self, name):
         self.name = name
+        self.role = "ZooKeeper"
 
 class Veterinarian:
-    def heal_animal(self, animal):
-        print(f"{self.name} лечит {animal.name}.")
-
     def __init__(self, name):
         self.name = name
+        self.role = "Veterinarian"
 
-# Класс Zoo с использованием композиции
 class Zoo:
     def __init__(self):
         self.animals = []
@@ -73,20 +54,49 @@ class Zoo:
 
     def add_staff(self, staff_member):
         self.staff.append(staff_member)
-        print(f"Дабавление {staff_member.name} в сотрудники зоопарка.")
+        print(f"Добавление {staff_member.name} в сотрудники зоопарка.")
 
     def list_animals(self):
         print("Список животных в зоопарке:")
         for animal in self.animals:
-            print(f"Имя: {animal.name}, возраст: {animal.age}")
+            print(f"Имя: {animal.name}, возраст: {animal.age}, тип: {animal.type}")
 
     def list_staff(self):
         print("Список сотрудников зоопарка:")
         for staff_member in self.staff:
-            print(f"Имя: {staff_member.name}")
+            print(f"Имя: {staff_member.name}, роль: {staff_member.role}")
 
+    def save_to_file(self, filename):
+        data = {
+            "animals": [{"type": a.type, "name": a.name, "age": a.age} for a in self.animals],
+            "staff": [{"name": s.name, "role": s.role} for s in self.staff]
+        }
+        with open(filename, 'w') as f:
+            json.dump(data, f, indent=4)
+            print("Состояние зоопарка сохранено в файл.")
 
-# Создание объектов и тестирование функционала
+    def load_from_file(self, filename):
+        with open(filename, 'r') as f:
+            data = json.load(f)
+            self.animals = [self.create_animal(a['type'], a['name'], a['age']) for a in data['animals']]
+            self.staff = [self.create_staff_member(s['name'], s['role']) for s in data['staff']]
+            print("Состояние зоопарка загружено из файла.")
+
+    def create_animal(self, type, name, age):
+        if type == "Bird":
+            return Bird(name, age)
+        elif type == "Mammal":
+            return Mammal(name, age)
+        elif type == "Reptile":
+            return Reptile(name, age)
+
+    def create_staff_member(self, name, role):
+        if role == "ZooKeeper":
+            return ZooKeeper(name)
+        elif role == "Veterinarian":
+            return Veterinarian(name)
+
+# Пример использования
 zoo = Zoo()
 zoo.add_staff(ZooKeeper("Настя"))
 zoo.add_staff(Veterinarian("Михаил"))
@@ -95,6 +105,11 @@ zoo.add_animal(Bird("Кукушка", 3))
 zoo.add_animal(Mammal("Кот", 5))
 zoo.add_animal(Reptile("Жаба", 2))
 
-animal_sound(zoo.animals)
-zoo.list_animals()
-zoo.list_staff()
+# Сохранение состояния зоопарка в файл
+zoo.save_to_file('zoo_state.json')
+
+# Загрузка состояния зоопарка из файла
+new_zoo = Zoo()
+new_zoo.load_from_file('zoo_state.json')
+new_zoo.list_animals()
+new_zoo.list_staff()
