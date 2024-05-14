@@ -42,15 +42,22 @@ class ZooKeeper:
         self.name = name
         self.role = "ZooKeeper"
 
+    def feed_animal(self, animal):
+        print(f"{self.name} заботится о {animal.name}.")
+
 class Veterinarian:
     def __init__(self, name):
         self.name = name
         self.role = "Veterinarian"
 
+    def heal_animal(self, animal):
+        print(f"{self.name} лечит {animal.name}.")
+
 class Zoo:
     def __init__(self):
         self.animals = []
         self.staff = []
+
 
     def add_animal(self, animal):
         self.animals.append(animal)
@@ -105,17 +112,28 @@ zoo = Zoo()
 zoo.add_staff(ZooKeeper("Настя"))
 zoo.add_staff(Veterinarian("Михаил"))
 
+
 zoo.add_animal(Bird("Кукушка", 3))
 zoo.add_animal(Mammal("Кот", 5))
 zoo.add_animal(Reptile("Жаба", 2))
+
+Animal.eat(zoo.animals[1])
+ZooKeeper.feed_animal(zoo.staff[0], zoo.animals[0])
+Veterinarian.heal_animal(zoo.staff[1], zoo.animals[1])
+
 animal_sound(zoo.animals)
+
 zoo.list_animals()
 zoo.list_staff()
+
 # Сохранение состояния зоопарка в файл
 zoo.save_to_file('zoo_state.json')
 
 # Загрузка состояния зоопарка из файла
 new_zoo = Zoo()
 new_zoo.load_from_file('zoo_state.json')
+
 new_zoo.list_animals()
 new_zoo.list_staff()
+
+animal_sound(new_zoo.animals)
