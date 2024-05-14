@@ -1,0 +1,3 @@
+<__main__.Bird object at 0x00000243FA8CB9D0>
+<__main__.Mammal object at 0x00000243FA8CA9E0>
+<__main__.Reptile object at 0x00000243FA5429B0>
